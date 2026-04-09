@@ -15,7 +15,7 @@ import { errorHandler } from "./utils/globalError.js"
 
 const App = express();
 
-
+App.set("trust proxy", 1)
 
 // ---------------- MIDDLEWARES ----------------
 
