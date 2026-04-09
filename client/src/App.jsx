@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Login from "./Pages/Login/Login";
 import OTPVerification from "./Pages/Login/otpVerify";
-import AppToaster from "./utils/Apptoaster";
+import AppToaster from "./utils/AppToaster";
 import { Routes, Route } from "react-router-dom";
 import {ProtectedRoute} from "./utils/ProtectedRoute.jsx";
 import Role from "./Pages/Dashboard/Role.jsx";

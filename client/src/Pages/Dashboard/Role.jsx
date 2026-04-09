@@ -1,6 +1,6 @@
 import React, { useState ,useEffect } from "react";
 import Home from "./Home";
-import isEduTrack from "../../assets/IsEduTrack.png";
+import isEduTrack from "../../assets/isEduTrack.png";
 import menuItems from "../../config/menuconfig";
 import { IoSearch } from "react-icons/io5";
 import Profile from "../../assets/profile.jpg";
@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../utils/Authcontext.jsx"
 
-export default function Role() {
+export default function Role() { 
   const [modalOpen, setModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
