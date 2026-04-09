@@ -48,11 +48,9 @@ App.use("/api", authRoute)
 
 // ---------------- PROTECTED ROUTES ----------------
 
-// all routes after this middleware require authentication
-App.use(authCheck)
 
-App.use("/api/admin", adminRoutes)
-App.use("/api/hr", hrRoute)
+App.use("/api/admin",authCheck, adminRoutes)
+App.use("/api/hr",authCheck, hrRoute)
 
 
 // ---------------- ERROR HANDLER ----------------
