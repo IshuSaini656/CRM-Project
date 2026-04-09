@@ -1,0 +1,61 @@
+# dependencies
+
+node_modules/
+
+# environment variables
+
+.env
+.env.*
+!.env.example
+
+# logs
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# runtime files
+
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# coverage reports
+
+coverage/
+
+# build folders
+
+dist/
+build/
+
+# cache
+
+.cache/
+.parcel-cache/
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# editor folders
+
+.vscode/
+.idea/
+
+# temporary files
+
+tmp/
+temp/
+
+# uploads (agar local storage use karte ho)
+
+uploads/
+
+# PM2 logs
+
+pm2.log
