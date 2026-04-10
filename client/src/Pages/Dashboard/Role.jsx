@@ -3,7 +3,6 @@ import Home from "./Home";
 import isEduTrack from "../../assets/isEduTrack.png";
 import menuItems from "../../config/menuconfig";
 import { IoSearch } from "react-icons/io5";
-import Profile from "../../assets/profile.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
 import Modals from "../../utils/Modals";
 import api from "../../utils/apicall";
