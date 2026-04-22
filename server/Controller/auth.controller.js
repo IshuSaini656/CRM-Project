@@ -64,21 +64,18 @@ export const authController = asyncHandler(async (req, res, next) => {
 
     const OTP = Math.floor(100000 + Math.random() * 900000)
 
-<<<<<<< HEAD
     try {
         await sendEmail(user.email, "OTP", otpTemplate(OTP))
     } catch (err) {
         logger.error(err)
         throw new customError(500, "Failed to send OTP. Try again")
     }
-=======
    try {
     await sendEmail(user.email, "OTP", otpTemplate(OTP))
 } catch (err) {
     logger.error(err)
     throw new customError(500, "Failed to send OTP. Try again")
 }
->>>>>>> 32aa53665c7194c438da61ceb9c1ffa59c25c7ff
 
     user.otp = await bcrypt.hash(String(OTP), 10)
     user.otpExpiry = Date.now() + 60 * 1000
