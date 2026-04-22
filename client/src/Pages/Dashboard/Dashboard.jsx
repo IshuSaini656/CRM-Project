@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 import React from "react";
-=======
 import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "../../Components/ui/card";
 
->>>>>>> 32aa53665c7194c438da61ceb9c1ffa59c25c7ff
 import {
   Card,
   CardHeader,
@@ -30,7 +27,6 @@ import {
   Legend,
 } from "recharts";
 
-<<<<<<< HEAD
 const Dashboard = () => {
   const studentData = [
     { name: "Boys", value: 454, color: "#3b82f6" },
@@ -347,7 +343,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-=======
 const Dashboard =() => {
 
 const studentData=[
@@ -788,4 +783,3 @@ Students placed this year
 }
 
 export default Dashboard
->>>>>>> 32aa53665c7194c438da61ceb9c1ffa59c25c7ff
