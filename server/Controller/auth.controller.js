@@ -64,9 +64,12 @@ export const authController = asyncHandler(async (req, res, next) => {
 
     const OTP = Math.floor(100000 + Math.random() * 900000)
 
-    await sendEmail(user.email, "OTP", otpTemplate(OTP))
-
-    logger.info(`OTP sent to ${email}`)
+    try {
+        await sendEmail(user.email, "OTP", otpTemplate(OTP))
+    } catch (err) {
+        logger.error(err)
+        throw new customError(500, "Failed to send OTP. Try again")
+    }
 
     user.otp = await bcrypt.hash(String(OTP), 10)
     user.otpExpiry = Date.now() + 60 * 1000
@@ -272,7 +275,6 @@ export const logoutController = asyncHandler(async (req, res, next) => {
 
             if (user) {
                 user.refreshToken = null
-                user.isVerified = false
                 await user.save()
 
                 logger.info(`User logged out: ${user.email}`)

@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Home from "./Home";
 import isEduTrack from "../../assets/isEduTrack.png";
 import menuItems from "../../config/menuconfig";
@@ -8,14 +8,14 @@ import Modals from "../../utils/Modals";
 import api from "../../utils/apicall";
 import toast from "react-hot-toast";
 import { useContext } from "react";
-import { AuthContext } from "../../utils/Authcontext.jsx"
+import { AuthContext } from "../../utils/Authcontext.jsx";
 
-export default function Role() { 
+export default function Role() {
   const [modalOpen, setModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
-  const { user , setUser } = useContext(AuthContext);
-      
+  const { user, setUser } = useContext(AuthContext);
+
   const handleLogout = async () => {
     try {
       const res = await api.post("/logout");
@@ -23,7 +23,7 @@ export default function Role() {
       toast.success(res.data.message);
       navigate("/", { replace: true });
     } catch (err) {
-      toast.error(err.response?.data.message)
+      toast.error(err.response?.data.message);
     }
   };
 
@@ -36,7 +36,7 @@ export default function Role() {
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = res.data.data
+      const data = res.data.data;
       setUser((prev) => ({
         ...prev,
         role: data.role,
@@ -54,19 +54,19 @@ export default function Role() {
   const userName = user.name;
 
   return (
-    <div className="bg-[#050915] min-h-screen text-white flex">
+    <div className="bg-[#050915] h-screen text-white flex overflow-hidden">
       {/* Sidebar */}
       <div
-        className={`fixed md:static z-50 bg-[#050915] border-r border-slate-800 
-        h-full w-[70%] sm:w-[50%] md:w-[18vw] 
+        className={`fixed md:static z-40 bg-[#050915] border-r border-slate-800 
+       h-screen w-[80%] sm:w-[70%] md:w-[30vw] lg:w-[25vw] xl:w-[18vw] md:pt-5
         transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
         md:translate-x-0 transition-transform duration-300`}
       >
         <div className="py-3 px-3">
+          {/* ❗ Logo untouched */}
           <img src={isEduTrack} alt="IS EduTrack" />
         </div>
 
-        {/* Menu */}
         <div className="flex flex-col w-full">
           {menuItems
             .filter((item) => item.roles.includes(role))
@@ -79,7 +79,7 @@ export default function Role() {
                   to={item.path}
                   end
                   className={({ isActive }) =>
-                    `flex items-center gap-3 p-4 pl-10 transition 
+                    `flex items-center gap-3 p-4 pl-8 transition 
                      ${isActive ? "bg-slate-800" : "hover:bg-slate-800"}`
                   }
                   onClick={() => setSidebarOpen(false)}
@@ -97,16 +97,9 @@ export default function Role() {
         >
           Logout
         </div>
-
-        <Modals
-          isOpen={modalOpen}
-          message="Are you sure you want to logout?"
-          onConfirm={handleLogout}
-          onClose={() => setModalOpen(false)}
-        />
       </div>
 
-      {/* Overlay mobile */}
+      {/* Overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 md:hidden"
@@ -114,58 +107,65 @@ export default function Role() {
         />
       )}
 
-      {/* Main Content */}
-      <div className="flex-1 md:w-[82vw]">
-        {/* Navbar */}
-        <div className="border-b border-slate-800 min-h-[12vh] px-4 flex flex-wrap items-center justify-between gap-4">
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-xl"
-            onClick={() => setSidebarOpen(true)}
-          >
-            ☰
-          </button>
+      {/* Main */}
+      <div className="flex-1 w-[82vw] flex flex-col">
+        {/* Navbar (FIXED) */}
+        <div className="border-b border-slate-800 min-h-[12vh] px-3 md:px-4 flex items-center justify-between gap-2 sticky top-0 bg-[#050915] z-30 ">
+          {/* Left: Menu + Search */}
+          <div className="flex items-center gap-2 w-full md:w-auto">
+            <button
+              className="md:hidden text-xl"
+              onClick={() => setSidebarOpen(true)}
+            >
+              ☰
+            </button>
 
-          {/* Search */}
-          <span className="flex items-center gap-2 border border-white rounded-2xl py-1 px-3 w-full sm:w-[40%] md:w-[25%]">
-            <IoSearch />
-            <input
-              type="search"
-              name="search"
-              className="border-none outline-none bg-transparent w-full"
-              placeholder="Search"
-            />
-          </span>
+            <div className="flex items-center gap-2 border border-white rounded-2xl py-1 px-3 w-full md:w-62">
+              <IoSearch />
+              <input
+                type="search"
+                name="search"
+                className="border-none outline-none bg-transparent w-full text-sm"
+                placeholder="Search"
+              />
+            </div>
+          </div>
 
-          {/* User */}
-          <span className="flex items-center gap-5">
-            <span className="flex flex-col items-end">
+          {/* Right: User */}
+          <div className="flex items-center gap-3 whitespace-nowrap">
+            <div className="flex flex-col items-end">
               <p className="text-yellow-400 text-sm md:text-base">{userName}</p>
               <p className="font-light text-zinc-400 text-xs md:text-sm">
                 {role}
               </p>
-            </span>
+            </div>
 
-            <span
-              className="w-10 h-10 md:w-11 md:h-11 border border-white rounded-full bg-zinc-200 flex items-center justify-center overflow-hidden text-zinc-900 text-xl"
-              onClick={() => {
-                navigate("/role/profile");
-              }}
+            <div
+              className="w-9 h-9 md:w-11 md:h-11 border border-white rounded-full bg-zinc-200 flex items-center justify-center overflow-hidden cursor-pointer"
+              onClick={() => navigate("/role/profile")}
             >
               <img
                 src={user.imageUrl}
                 alt="profile"
                 className="w-full h-full object-cover"
               />
-            </span>
-          </span>
+            </div>
+          </div>
         </div>
 
-        {/* Page Content */}
-        <div className="p-4 md:p-6 h-[calc(100vh-12vh)] overflow-y-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {/* Content */}
+        <div className="p-3 md:p-6 flex-1 overflow-y-auto h-[calc(100vh-12vh)]">
           <Home />
         </div>
       </div>
+
+      {/* Modal */}
+      <Modals
+        isOpen={modalOpen}
+        message="Are you sure you want to logout?"
+        onConfirm={handleLogout}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
 }

@@ -1,15 +1,22 @@
 import React from "react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 
 const Placement = () => {
   const totalPlacements = 320;
   const last90Days = 48;
 
   const placementData = [
-    { name: "MERN Stack", value: 140 },
-    { name: "Data Science", value: 80 },
-    { name: "Machine Learning", value: 60 },
-    { name: "App Development", value: 40 },
+    { name: "MERN", value: 140 },
+    { name: "Data Sci", value: 80 },
+    { name: "ML", value: 60 },
+    { name: "App Dev", value: 40 },
   ];
 
   const colors = ["#6366F1", "#22C55E", "#F59E0B", "#EF4444"];
@@ -83,54 +90,52 @@ const Placement = () => {
   ];
 
   return (
-    <div className="p-6 bg-slate-950 min-h-screen">
-      <h1 className="text-2xl font-bold text-white mb-6">Placement Overview</h1>
+    <div className="p-3 sm:p-6 bg-slate-950 min-h-screen">
+      <h1 className="text-xl sm:text-2xl font-bold text-white mb-6">
+        Placement Overview
+      </h1>
 
-      {/* TOP STATS */}
-
-      <div className="grid md:grid-cols-2 gap-6 mb-10">
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-          <p className="text-slate-400 text-sm">Total Placements</p>
-
-          <h2 className="text-4xl font-bold text-white mt-2">
+      {/* TOP */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-6 mb-8">
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-6">
+          <p className="text-slate-400 text-xs sm:text-sm">Total Placements</p>
+          <h2 className="text-2xl sm:text-4xl font-bold text-white mt-2">
             {totalPlacements}
           </h2>
-
-          <p className="text-emerald-400 text-sm mt-2">
+          <p className="text-emerald-400 text-xs sm:text-sm mt-2">
             Overall placements till now
           </p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-          <p className="text-slate-400 text-sm">Last 90 Days Placements</p>
-
-          <h2 className="text-4xl font-bold text-white mt-2">{last90Days}</h2>
-
-          <p className="text-emerald-400 text-sm mt-2">
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-6">
+          <p className="text-slate-400 text-xs sm:text-sm">
+            Last 90 Days Placements
+          </p>
+          <h2 className="text-2xl sm:text-4xl font-bold text-white mt-2">
+            {last90Days}
+          </h2>
+          <p className="text-emerald-400 text-xs sm:text-sm mt-2">
             Recent placement growth
           </p>
         </div>
       </div>
 
-      {/* GRAPH + HIGHEST PACKAGE */}
-
-      <div className="grid lg:grid-cols-2 gap-8 mb-12">
-        {/* COURSE WISE GRAPH */}
-
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-          <h2 className="text-white text-lg font-semibold mb-6">
+      {/* GRAPH + CARDS */}
+      <div className="grid lg:grid-cols-2 gap-6 mb-10">
+        {/* PIE FIXED */}
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-6">
+          <h2 className="text-white text-base sm:text-lg font-semibold mb-4">
             Course Wise Placements
           </h2>
 
-          <div className="h-[80%]">
-            <ResponsiveContainer>
+          <div className="w-full h-[260px] sm:h-[320px]">
+            <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={placementData}
                   dataKey="value"
                   nameKey="name"
-                  outerRadius={110}
-                  label={({ name }) => name}
+                  outerRadius={90}
                 >
                   {placementData.map((entry, index) => (
                     <Cell key={index} fill={colors[index % colors.length]} />
@@ -138,47 +143,37 @@ const Placement = () => {
                 </Pie>
 
                 <Tooltip />
+
+                {/* 🔥 Legend instead of labels */}
+                <Legend wrapperStyle={{ fontSize: "12px" }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* TOP PACKAGE CARDS */}
-
+        {/* TOP PACKAGES */}
         <div>
-          <h2 className="text-white text-lg font-semibold mb-6">
+          <h2 className="text-white text-base sm:text-lg font-semibold mb-4">
             Top Highest Packages
           </h2>
 
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {topPackages.map((student, index) => (
               <div
                 key={index}
-                className="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:bg-slate-800 transition"
+                className="bg-slate-900 border border-slate-800 rounded-xl p-4 hover:bg-slate-800 transition"
               >
-                <h3 className="text-lg font-semibold text-white">
-                  {student.name}
-                </h3>
+                <h3 className="text-white font-semibold">{student.name}</h3>
 
-                <p className="text-slate-400 text-sm mb-3">{student.post}</p>
+                <p className="text-slate-400 text-sm mb-2">{student.post}</p>
 
-                <div className="space-y-1 text-sm">
-                  <p className="text-slate-300">
-                    Course :{" "}
-                    <span className="text-white">{student.course}</span>
-                  </p>
-
-                  <p className="text-slate-300">
-                    Company :{" "}
-                    <span className="text-white">{student.company}</span>
-                  </p>
-
-                  <p className="text-slate-300">
-                    Year : <span className="text-white">{student.year}</span>
-                  </p>
+                <div className="text-sm space-y-1">
+                  <p className="text-slate-300">Course: {student.course}</p>
+                  <p className="text-slate-300">Company: {student.company}</p>
+                  <p className="text-slate-300">Year: {student.year}</p>
                 </div>
 
-                <div className="mt-4 text-emerald-400 font-bold text-lg">
+                <div className="mt-3 text-emerald-400 font-bold">
                   {student.package}
                 </div>
               </div>
@@ -187,8 +182,7 @@ const Placement = () => {
         </div>
       </div>
 
-      {/* LATEST PLACEMENTS */}
-
+      {/* TABLE (UNCHANGED) */}
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
         <h2 className="text-white text-lg font-semibold mb-6">
           Latest Placements
