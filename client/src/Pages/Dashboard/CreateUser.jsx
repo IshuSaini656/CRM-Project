@@ -33,7 +33,7 @@ try{
     password:""
     });
 } catch(error){
-    toast.error(error.response?.data)
+    toast.success(res.data.message || "User Created Successfully");
 }
 };
 
